@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Auth\Events\Login;
@@ -26,6 +27,8 @@ Route::post('/register', [RegisterController::class, 'store']);
 // Rutas de login
 Route::get('/login', [LoginController::class, 'index'])->name('login'); // Name para la ruta 
 Route::post('/login', [LoginController::class, 'store']);
+// Ruta de logout
+Route::post('/logout', [LogoutController::class, 'store'])->name('logout'); // Name para la ruta 
 // Rutas de muro
 Route::get('/muro', [PostController::class, 'index'])->name('posts.index'); // Name para la ruta 
 

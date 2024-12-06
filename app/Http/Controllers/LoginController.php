@@ -21,7 +21,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
         // Si la validacion es incorrecta mostrar un error
-        if (!auth()->attempt($request->only('email', 'password'))) {
+        if (!auth()->attempt($request->only('email', 'password'), $request->remember)) { // remember = recordarme en la sesion 
             // Si la autenticacion falla mostrar un error
             return back()->with('mensaje', 'Credenciales incorrectas');
         }
