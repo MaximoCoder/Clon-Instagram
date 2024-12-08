@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\RegisterController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,9 @@ Route::post('/login', [LoginController::class, 'store']);
 // Ruta de logout
 Route::post('/logout', [LogoutController::class, 'store'])->name('logout'); // Name para la ruta 
 // Rutas de muro
-Route::get('/muro', [PostController::class, 'index'])->name('posts.index'); // Name para la ruta 
+Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.index'); // Name para la ruta 
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create'); // Name para la ruta 
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store'); // Name para la ruta 
+
+Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store'); // Name para la ruta 
 

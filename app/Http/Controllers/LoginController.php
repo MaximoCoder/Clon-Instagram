@@ -26,6 +26,8 @@ class LoginController extends Controller
             return back()->with('mensaje', 'Credenciales incorrectas');
         }
         // Si la autenticacion es correcta redireccionar al muro
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index',
+            auth()->user()->username
+        );
     }
 }
