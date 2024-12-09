@@ -14,9 +14,12 @@ class PostController extends Controller
     }
     // Renderizar la vista de muro
     public function index(User $user) {
+        // Obtener los posts de la base de datos
+        $posts = Post::where('user_id', $user->id)->paginate(20);
         // Le pasamos los datos del usuario de la ruta
         return view('dashboard',[
-            'user' => $user
+            'user' => $user,
+            'posts' => $posts
         ]);
     }
 
@@ -48,6 +51,16 @@ class PostController extends Controller
         $post->imagen = $request->imagen;
         $post->user_id = auth()->user()->id;
         $post->save();
+        */
+
+        // Otra forma de hacer create utilizando las relaciones
+        /*
+        auth()->user()->posts()->create([
+            'titulo' => $request->titulo,
+            'descripcion' => $request->descripcion,
+            'imagen' => $request->imagen,
+            'user_id' => auth()->user()->id // Obtener el id del usuario autenticado
+        ]);
         */
         // Redireccionar a su muro
         return redirect()->route('posts.index', auth()->user()->username);
