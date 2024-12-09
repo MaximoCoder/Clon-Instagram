@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     // Proteger la ruta para que solo los usuarios autenticados puedan acceder
     public function __construct() {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show', 'index'); // Excepciones de rutas 
     }
     // Renderizar la vista de muro
     public function index(User $user) {
@@ -67,8 +67,9 @@ class PostController extends Controller
     }
 
     // Show post
-    public function show(Post $post){
+    public function show(User $user,Post $post){
         return view('posts.show', [
+            'user' => $user,
             'post' => $post
         ]);
     }

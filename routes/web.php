@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComentarioController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -33,8 +34,11 @@ Route::post('/logout', [LogoutController::class, 'store'])->name('logout'); // N
 // Rutas de muro
 Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.index'); // Mostrar el muro
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create'); // mostrar el formulario para crear un post
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show'); // Mostrar la publicacion 
+Route::get('/{user:username}/posts/{post}', [PostController::class, 'show'])->name('posts.show'); // Mostrar la publicacion 
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store'); // Guardar la publicacion
+
+// Rutas comentarios
+Route::post('/{user:username}/posts/{post}', [ComentarioController::class, 'store'])->name('comentarios.store'); // Mostrar la publicacion 
 
 Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store'); // Name para la ruta 
 
