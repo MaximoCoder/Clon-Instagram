@@ -44,17 +44,45 @@
                 
 
                 <p class="text-gray-800 text-sm mb-3 font-bold mt-5">
-                    0
-                    <span class="font-normal">seguidores</span>
+                    <!-- Contar Seguidores -->
+                    {{ $user->followers->count() }}
+                    <span class="font-normal">@choice('Seguidor|Seguidores', $user->followers->count() )</span>
                 </p>
                 <p class="text-gray-800 text-sm mb-3 font-bold">
-                    0
-                    <span class="font-normal">Sigue</span>
+                    <!-- Contar Seguidos -->
+                    {{ $user->following->count() }}
+                    <span class="font-normal">Seguidos</span>
                 </p>
                 <p class="text-gray-800 text-sm mb-3 font-bold">
                     {{ $user->posts->count() }}
                     <span class="font-normal">Posts</span>
                 </p>
+                <!-- BOTON DE SIGUIENDO -->
+                @auth
+                    <!-- VALIDAR SI EL USUARIO ES DIFERENTE AL PERFIL ACTUAL -->
+                    @if ($user->id !== auth()->user()->id)
+                        <!-- Validar si ya lo esta siguiendo -->
+                        @if (!$user->siguiendo( auth()->user() ))
+                            <!-- No lo sigue -->
+                            <form action="{{  route('users.follow', $user) }}" method="POST">
+                                @csrf
+                                <input type="submit" class="bg-blue-600 hover:bg-blue-700 text-white uppercase rounded-lg px-3 py-1 text-xs font-bold cursor-pointer"
+                                value="Seguir"
+                                >
+                            </form>
+                        @else
+                            <!-- Ya lo sigue -->
+                            <form action="{{  route('users.unfollow', $user) }}" method="POST">
+                                @method('DELETE') <!-- METODO SPOOFING -->
+                                @csrf
+                                <input type="submit" class="bg-red-600 hover:bg-red-700 text-white uppercase rounded-lg px-3 py-1 text-xs font-bold cursor-pointer"
+                                value="Dejar de seguir"
+                                >
+                            </form>
+                        @endif
+                    @endif
+                @endauth
+                
             </div>  
         </div>
     </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\FollowerController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -50,3 +51,7 @@ Route::post('/{user:username}/posts/{post}', [ComentarioController::class, 'stor
 Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store'); // Name para la ruta 
 // Ruta de variable hasta el final
 Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.index'); // Mostrar el muro
+
+// Siguiendo a usuarios
+Route::post('/{user:username}/follow', [FollowerController::class, 'store'])->name('users.follow'); // Seguir
+Route::delete('/{user:username}/unfollow', [FollowerController::class, 'destroy'])->name('users.unfollow'); // Dejar de seguir
