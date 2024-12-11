@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -32,8 +33,10 @@ Route::get('/login', [LoginController::class, 'index'])->name('login'); // Name 
 Route::post('/login', [LoginController::class, 'store']);
 // Ruta de logout
 Route::post('/logout', [LogoutController::class, 'store'])->name('logout'); // Name para la ruta 
+// Rutas para el perfil
+Route::get('/editar-perfil', [PerfilController::class, 'index'])->name('perfil.index'); // Mostrar el formulario para editar el perfil
+Route::post('/editar-perfil', [PerfilController::class, 'store'])->name('perfil.store'); // Actualizar el perfil
 // Rutas de muro
-Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.index'); // Mostrar el muro
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create'); // mostrar el formulario para crear un post
 Route::get('/{user:username}/posts/{post}', [PostController::class, 'show'])->name('posts.show'); // Mostrar la publicacion 
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store'); // Guardar la publicacion
@@ -45,4 +48,5 @@ Route::delete('/posts/{post}/likes', [LikeController::class, 'destroy'])->name('
 Route::post('/{user:username}/posts/{post}', [ComentarioController::class, 'store'])->name('comentarios.store'); // Mostrar la publicacion 
 
 Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store'); // Name para la ruta 
-
+// Ruta de variable hasta el final
+Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.index'); // Mostrar el muro
