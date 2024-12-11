@@ -71,7 +71,7 @@ class PerfilController extends Controller
             $nombreImagen = Str::uuid() . "." . $imagen->extension();
 
             // Guardar y redimensionar la imagen
-            $imagenServidor = Image::make($imagen);
+            $imagenServidor = Image::read($imagen);
             $imagenServidor->resize(1000, 1000);
             $imagenPath = public_path('perfiles') . '/' . $nombreImagen;
             $imagenServidor->save($imagenPath);
