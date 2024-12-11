@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User; // Importar el modelo User
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use App\Models\User; // Importar el modelo User
 
 class PostController extends Controller
 {
@@ -72,5 +73,20 @@ class PostController extends Controller
             'user' => $user,
             'post' => $post
         ]);
+    }
+
+    // Destroy post
+    public function destroy(Post $post){
+        // Verificar que el post pertenece al usuario autenticado
+        $this->authorize('delete', $post); // Validar usando Policy 
+        // Eliminar el post
+        $post->delete();
+        // Eliminar la imagen asociada al post
+        $imagen_path = public_path('uploads/' . $post->imagen);
+        if(File::exists($imagen_path)){
+            unlink($imagen_path); // Eliminar la imagen
+        }
+        // Redireccionar a su muro
+        return redirect()->route('posts.index', auth()->user()->username);
     }
 }
