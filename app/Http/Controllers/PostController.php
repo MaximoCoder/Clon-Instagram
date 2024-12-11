@@ -16,7 +16,7 @@ class PostController extends Controller
     // Renderizar la vista de muro
     public function index(User $user) {
         // Obtener los posts de la base de datos
-        $posts = Post::where('user_id', $user->id)->paginate(20);
+        $posts = Post::where('user_id', $user->id)->latest()->paginate(20);
         // Le pasamos los datos del usuario de la ruta
         return view('dashboard',[
             'user' => $user,

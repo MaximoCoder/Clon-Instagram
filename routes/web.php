@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -23,17 +24,15 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-Route::get('/', function () {
-    return view('principal');
-});
+Route::get('/', HomeController::class)->name('home'); // Index
 // Rutas de registro
-Route::get('/register', [RegisterController::class, 'index'])->name('register'); // Name para la ruta 
+Route::get('/register', [RegisterController::class, 'index'])->name('register'); // Index register 
 Route::post('/register', [RegisterController::class, 'store']);
 // Rutas de login
-Route::get('/login', [LoginController::class, 'index'])->name('login'); // Name para la ruta 
+Route::get('/login', [LoginController::class, 'index'])->name('login'); // Index login
 Route::post('/login', [LoginController::class, 'store']);
 // Ruta de logout
-Route::post('/logout', [LogoutController::class, 'store'])->name('logout'); // Name para la ruta 
+Route::post('/logout', [LogoutController::class, 'store'])->name('logout'); // Logout
 // Rutas para el perfil
 Route::get('/editar-perfil', [PerfilController::class, 'index'])->name('perfil.index'); // Mostrar el formulario para editar el perfil
 Route::post('/editar-perfil', [PerfilController::class, 'store'])->name('perfil.store'); // Actualizar el perfil
