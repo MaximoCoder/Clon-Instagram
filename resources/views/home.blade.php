@@ -45,34 +45,8 @@
                     
                     <div class="flex justify-between items-center">
                         <div class="flex space-x-4">
-                            @if($post->checkLike(auth()->user()))
-                                <!-- Si YA DIO LIKE entonces mostramos el boton para quitar like-->
-                                <form action="{{ route('posts.likes.destroy', $post) }}" method="POST">
-                                    @method('DELETE') <!-- METODO SPOOFING -->
-                                    @csrf
-                                    <div class="my-4">
-                                        <button type="submit" class="flex items-center text-red-500">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="red" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                            </svg>
-                                            <span>{{ $post->likes->count()}}</span>
-                                        </button>
-                                    </div>
-                                </form>
-                            @else
-                                <!-- Si no ha dado like le mostramos el boton para dar like-->
-                                <form action="{{ route('posts.likes.store', $post) }}" method="POST">
-                                    @csrf
-                                    <div class="my-4">
-                                        <button type="submit" class="flex items-center text-gray-600 hover:text-red-500">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                            </svg>
-                                            <span>{{ $post->likes->count()}}</span>
-                                        </button>
-                                    </div>
-                                </form>
-                            @endif
+                            <!-- LLamamos al componente de livewire -->
+                            <livewire:like-post  :post="$post"/>
                             
                             <a href="{{ route('posts.show', ['post' => $post, 'user' => $post->user ]) }}" class="flex items-center text-gray-600 hover:text-blue-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -4,6 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        @livewireStyles
         @stack('styles')
         @vite('resources/css/app.css')
         <title>DevStagram - @yield('titulo')</title>
@@ -59,5 +60,6 @@
        <footer class="mt-10 text-center p-5 text-gray-500 font-bold uppercase">
             DevStagram - Todos los derechos reservados {{ date('Y') }}
        </footer>
+       @livewireScripts
     </body>
 </html>
