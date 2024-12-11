@@ -19,7 +19,7 @@ class Post extends Model
     // Relacion con el modelo User
     public function user() {
         // Un post pertenece a un usuario
-        return $this->belongsTo(User::class)->select(['name', 'username']);
+        return $this->belongsTo(User::class)->select(['name', 'username', 'imagen']);
     }
 
     // Relacion con el modelo Comentario
